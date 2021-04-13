@@ -24,6 +24,28 @@ namespace ChatSocketApp
                     if (serverSocket.ObtenerCliente())
                     {
                         Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine("Cliente recibido..");
+                        string mensaje = "";
+                        
+                        while(mensaje.ToLower() != "chao")
+                        {
+                            string respuesta = serverSocket.Leer();
+                            Console.WriteLine("Cliente:{0}", respuesta);
+                            if(respuesta.ToLower() != "chao")
+                            {
+                                Console.WriteLine("Diga lo que quiere decir guruguru:");
+                                mensaje = Console.ReadLine().Trim();
+                                Console.WriteLine("S:{0}", mensaje);
+                                serverSocket.Escribir(mensaje);
+                            }
+                            else
+                            {
+                                mensaje = "chao";
+                            }
+                        }
+                        serverSocket.CerrarConexion();
+                        
+                        /*
                         Console.WriteLine("Cliente recibido!");
                         Console.WriteLine("S: Hola CLiente");
                         serverSocket.Escribir("Hola CLiente");
@@ -37,6 +59,7 @@ namespace ChatSocketApp
                         Console.WriteLine("C:{0}", respuesta);
 
                         serverSocket.CerrarConexion();
+                        */
                     }
                 }
             }
